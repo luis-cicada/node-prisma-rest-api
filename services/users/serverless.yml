@@ -1,0 +1,88 @@
+# @Service: Users
+# @Version: 1.0
+
+service: portafolio-users
+
+functions:
+  createUser:
+    handler: dist/createUser.handler
+    environment:
+      LABEL: 'Create User'
+    events:
+      - http:
+          path: /
+          method: POST
+          cors: ${self:custom.corsSettings}
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  type: ${env:type, 'primary'}
+
+  domains: ${file(../../serverless/domains.yml)}
+  corsDomain: ${file(../../serverless/cors.yml)}
+  subnetIds: ${file(../../serverless/subnets.yml)}
+  security_group_id: ${file(../../serverless/security-groups.yml)}
+
+  # Serverless Domain Manager
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}-${self:custom.type}}
+    endpointType: regional
+    basePath: users
+    stage: ${self:custom.stage}
+    createRoute53Record: true
+
+  # Cors Settings
+  corsSettings:
+    origin: ${self:custom.corsDomain.${self:custom.stage}}
+    headers:
+      - Content-Type
+      - X-Amz-Date
+      - Authorization
+      - X-Api-Key
+      - X-Amz-Security-Token
+      - X-Amz-User-Agent
+  allowCredentials: false
+
+package:
+  patterns:
+    - '!src/**'
+    - '!node_modules/**'
+    - '!node_modules/@portafolio/libs/node_modules/.prisma/client/libquery_engine-*'
+    - '!node_modules/@portafolio/libs/node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@portafolio/libs/node_modules/@prisma/engines/**'
+    - '**/*.prisma'
+    - '**/libquery_engine-rhel-openssl-1.0.x.so.node'
+    - 'node_modules/@portafolio/libs/node_modules/@prisma/client/**'
+    - 'node_modules/@portafolio/libs/node_modules/.prisma/client/index.js'
+  excludeDevDependencies: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  endpointType: regional
+  stage: dev
+  region: ${opt:region, 'us-east-2'}
+  timeout: 30
+  logRetentionInDays: 60
+  versionFunctions: false
+
+  environment:
+    STAGE: ${self:custom.stage}
+    SERVICE: users
+    REGION: ${self:provider.region}
+    CORS_DOMAIN: ${self:custom.corsDomain.${self:custom.stage}}
+
+  apiGateway:
+    shouldStartNameWithService: true
+  deploymentBucket:
+    name: com.ale-portafolio.${self:provider.region}.${self:custom.stage}.deploys
+
+  vpc:
+    securityGroupIds: ${self:custom.security_group_id.${self:custom.stage}-${self:custom.type}}
+    subnetIds: ${self:custom.subnetIds.${self:custom.stage}-${self:custom.type}}
+    
