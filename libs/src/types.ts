@@ -1,3 +1,7 @@
+import { Request } from 'express'
+import { ContainerTypes, ValidatedRequestSchema } from 'express-joi-validation'
+import { ParsedQs } from 'qs'
+
 /*  Result
 ========================================= */
 export interface IResult<T> {
@@ -7,6 +11,37 @@ export interface IResult<T> {
   data: T
   success: boolean
   pagination?: any
+}
+
+export interface IExpressRequest<T extends ValidatedRequestSchema> extends Request, IRequestWithOptions {
+  body: T[ContainerTypes.Body]
+  query: T[ContainerTypes.Query] & ParsedQs
+  headers: T[ContainerTypes.Headers]
+  params: T[ContainerTypes.Params]
+}
+
+export interface IRequestWithOptions extends Request {
+  apiGateway?: IApiGateway
+}
+
+export interface IApiGateway {
+  event?: IApiGatewayEvent
+}
+
+export interface IApiGatewayEvent {
+  version: string
+  id: string
+  source?: EApiGatewaySource
+  account: string
+  time: string
+  region: string
+  body: string
+  httpMethod: string
+  path: string
+}
+
+export enum EApiGatewaySource {
+  EVENT = 'aws.events',
 }
 
 export interface IResultCustomMetadata {
@@ -33,12 +68,12 @@ export interface IErrorResponse {
   help?: string
   custom_internal_error?: boolean
   internalMessage?: string
-  overrideCode?: EHttpErrors
+  overrideCode?: EHttpCodes
   overrideStatusResponse?: boolean
   metadata?: any
 }
 
-export enum EHttpErrors {
+export enum EHttpCodes {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   PAYMENT_REQUIRED = 402,

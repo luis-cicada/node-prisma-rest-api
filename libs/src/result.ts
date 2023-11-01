@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { DbErrors, EHttpErrors, EResultErrors, GenericErrors, IErrorResponse, IResult, IResultCustomMetadata, Logger } from '.'
+import { DbErrors, EHttpCodes, EResultErrors, GenericErrors, IErrorResponse, IResult, IResultCustomMetadata, Logger } from '.'
 
 export class Result {
   static customMetadata: IResultCustomMetadata = {}
@@ -15,7 +15,7 @@ export class Result {
     if (!data) data = {}
 
     const response: IResult<any> = {
-      code: data && typeof data === 'object' && data.hasOwnProperty('code') ? data.code : EHttpErrors.SUCCESS,
+      code: data && typeof data === 'object' && data.hasOwnProperty('code') ? data.code : EHttpCodes.SUCCESS,
       reason: '',
       data: data && typeof data === 'object' && data.hasOwnProperty('data') ? data.data : data,
       success: true,
@@ -43,7 +43,7 @@ export class Result {
 
       let errorResponse: IErrorResponse | undefined = undefined
       let reason: string = ''
-      let overrideCode: EHttpErrors | undefined = undefined
+      let overrideCode: EHttpCodes | undefined = undefined
       let overrideStatusResponse: boolean | undefined = undefined
 
       customMetadata.stack = undefined
@@ -96,7 +96,7 @@ export class Result {
 
       return {
         error: errorResponse,
-        code: overrideCode ?? EHttpErrors.BAD_REQUEST,
+        code: overrideCode ?? EHttpCodes.BAD_REQUEST,
         reason: reason,
         data: {},
         success: !overrideStatusResponse ?? true,
@@ -104,7 +104,7 @@ export class Result {
     } catch (err) {
       return {
         error: GenericErrors.INTERNAL_SERVER,
-        code: EHttpErrors.INTERNAL_SERVER_ERROR,
+        code: EHttpCodes.INTERNAL_SERVER_ERROR,
         reason: `Internal Server Error | Error: ${err}`,
         data: {},
         success: false,
@@ -187,7 +187,7 @@ export class Result {
           } else {
             response = {
               error: true,
-              code: error && typeof error === 'object' && error.hasOwnProperty('code') ? error.code : EHttpErrors.BAD_REQUEST,
+              code: error && typeof error === 'object' && error.hasOwnProperty('code') ? error.code : EHttpCodes.BAD_REQUEST,
               reason: error && typeof error === 'object' && error.hasOwnProperty('reason') ? error.reason : error ?? '',
               data: {},
               success: false,
@@ -200,7 +200,7 @@ export class Result {
         case EResultErrors.Result:
           response = {
             error: true,
-            code: error && typeof error === 'object' && error.hasOwnProperty('code') ? error.code : EHttpErrors.BAD_REQUEST,
+            code: error && typeof error === 'object' && error.hasOwnProperty('code') ? error.code : EHttpCodes.BAD_REQUEST,
             reason:
               error && typeof error === 'object' && error.hasOwnProperty('reason')
                 ? error.reason
@@ -217,7 +217,7 @@ export class Result {
         default:
           response = {
             error: true,
-            code: error && typeof error === 'object' && error.hasOwnProperty('code') ? error.code : EHttpErrors.BAD_REQUEST,
+            code: error && typeof error === 'object' && error.hasOwnProperty('code') ? error.code : EHttpCodes.BAD_REQUEST,
             reason:
               error && typeof error === 'object' && error.hasOwnProperty('reason')
                 ? error.reason
@@ -235,7 +235,7 @@ export class Result {
     } catch (err) {
       response = {
         error: true,
-        code: EHttpErrors.INTERNAL_SERVER_ERROR,
+        code: EHttpCodes.INTERNAL_SERVER_ERROR,
         reason: `Internal Server Error | Error: ${err}`,
         data: {},
         success: false,

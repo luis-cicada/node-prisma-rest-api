@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { EHttpErrors, IResult } from '../types'
+import { EHttpCodes, IResult } from '../types'
 
 export class DbErrors {
   static getDbError(error: Prisma.PrismaClientKnownRequestError): IResult<any> {
@@ -38,7 +38,7 @@ export class DbErrors {
   private static buildDbError(message: string): IResult<any> {
     return {
       error: true,
-      code: EHttpErrors.BAD_REQUEST,
+      code: EHttpCodes.BAD_REQUEST,
       reason: message,
       data: {},
       success: false,

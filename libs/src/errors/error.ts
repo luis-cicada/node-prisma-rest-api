@@ -1,4 +1,4 @@
-import { EHttpErrors, IErrorResponse } from '../types'
+import { EHttpCodes, IErrorResponse } from '../types'
 
 export class GenericErrors {
   static INTERNAL_SERVER: IErrorResponse = { code: 'E1_500', message: 'Unhandled Error', detail: 'Please contact support' }
@@ -9,7 +9,7 @@ export class GenericErrors {
       message: 'Unhandled Error',
       detail: 'Please contact support',
       custom_internal_error: true,
-      overrideCode: EHttpErrors.INTERNAL_SERVER_ERROR,
+      overrideCode: EHttpCodes.INTERNAL_SERVER_ERROR,
       internalMessage: message,
     }
   }
@@ -23,7 +23,7 @@ export class GenericErrors {
   static FORBIDDEN_DUE_TO_SCOPES: IErrorResponse = {
     code: 'E1_403',
     overrideStatusResponse: true,
-    overrideCode: EHttpErrors.FORBIDDEN,
+    overrideCode: EHttpCodes.FORBIDDEN,
     message: 'The user does not have the necessary scope to perform this action',
     detail: `This happens when you're trying to make a CRUD operation in resource that are not part of your company or created by you`,
   }
@@ -31,7 +31,7 @@ export class GenericErrors {
   static FORBIDDEN_DUE_TO_PERMISSIONS: IErrorResponse = {
     code: 'E1_403',
     overrideStatusResponse: true,
-    overrideCode: EHttpErrors.FORBIDDEN,
+    overrideCode: EHttpCodes.FORBIDDEN,
     message: 'The user does not have the necessary permission to perform this action',
     detail: `This happens when you're trying to make a CRUD operation that you don't have permission`,
   }
@@ -47,7 +47,7 @@ export class GenericErrors {
     message: 'Error while retrieving data',
     detail: 'This endpoint requires the pagination middleware',
     overrideStatusResponse: true,
-    overrideCode: EHttpErrors.INTERNAL_SERVER_ERROR,
+    overrideCode: EHttpCodes.INTERNAL_SERVER_ERROR,
   }
 
   static MISSING_ACTIVE_USER_MIDDLEWARE: IErrorResponse = {
@@ -55,7 +55,7 @@ export class GenericErrors {
     message: 'Error while retrieving data',
     detail: 'This endpoint requires the active user middleware',
     overrideStatusResponse: true,
-    overrideCode: EHttpErrors.INTERNAL_SERVER_ERROR,
+    overrideCode: EHttpCodes.INTERNAL_SERVER_ERROR,
   }
 
   static UNAUTHORIZED_RESOURCE_SCOPE: IErrorResponse = {
