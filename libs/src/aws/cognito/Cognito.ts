@@ -13,7 +13,8 @@ import {
   SignUpCommandOutput,
 } from '@aws-sdk/client-cognito-identity-provider'
 import crypto from 'crypto'
-import { IResult, Result } from '../..'
+import { IResult } from '../..'
+import { Result } from '../../result'
 import { ISignUpParams } from './types'
 
 export class Cognito {

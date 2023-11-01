@@ -1,0 +1,39 @@
+{
+  "name": "portafolio-users",
+  "version": "1.0.0",
+  "description": "Users Service",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Luis Alejandro Guzman",
+  "scripts": {
+    "ci": "yarn --frozen-lockfile",
+    "build": "tsc",
+    "set-up": "yarn add link:../../libs && yarn",
+    "set-up-ci": "yarn link @portafolio/libs && yarn ci",
+    "start": "(start npm run watch && start npm run serverless) || (npm run watch & npm run serverless)",
+    "watch": "tsc --watch -p ./tsconfig.json",
+    "serverless": "serverless offline start --prefix users --noPrependStageInUrl --noAuth",
+    "deploy-primary": "tsc && serverless deploy --stage dev",
+    "dp": "tsc && serverless deploy --stage dev"
+  },
+  "dependencies": {
+    "@portafolio/libs": "link:../../libs",
+    "express": "4.18.2",
+    "express-joi-validation": "5.0.1",
+    "joi": "17.11.0",
+    "serverless-http": "3.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.23.2",
+    "@babel/preset-env": "7.23.2",
+    "@babel/preset-typescript": "7.23.2",
+    "@types/express": "4.17.20",
+    "@types/node": "20.8.10",
+    "serverless": "3.36.0",
+    "serverless-domain-manager": "7.1.2",
+    "serverless-offline": "13.2.0",
+    "serverless-plugin-common-excludes": "4.0.0",
+    "serverless-plugin-include-dependencies": "5.1.0",
+    "typescript": "5.2.2"
+  }
+}
