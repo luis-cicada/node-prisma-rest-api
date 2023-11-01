@@ -1,5 +1,5 @@
 {
-  "name": "libs-package",
+  "name": "@portafolio/libs",
   "version": "1.0.0",
   "description": "Core API Utility Library",
   "main": "dist/index.js",
@@ -13,16 +13,20 @@
     "deploy-db": "npx prisma db push"
   },
   "devDependencies": {
+    "@babel/core": "7.23.2",
+    "@babel/preset-env": "7.23.2",
+    "@babel/preset-typescript": "7.23.2",
     "@types/node": "20.8.10",
     "prisma": "5.5.2",
     "typescript": "5.2.2"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.438.0",
+    "@aws-sdk/client-cognito-identity-provider": "3.438.0",
     "@prisma/client": "5.5.2",
-    "crypto": "^1.0.1",
-    "logform": "^2.6.0",
+    "crypto": "1.0.1",
+    "dotenv": "16.3.1",
+    "logform": "2.6.0",
     "prisma-field-encryption": "1.5.0",
-    "winston": "^3.11.0"
+    "winston": "3.11.0"
   }
 }
