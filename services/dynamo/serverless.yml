@@ -1,7 +1,7 @@
-# @Service: Users
+# @Service: Dynamo
 # @Version: 1.0
 
-service: portafolio-users
+service: portafolio-dynamodb
 
 functions:
   createUser:
@@ -14,6 +14,7 @@ functions:
           method: POST
 
 plugins:
+  - serverless-dynamodb
   - serverless-offline
   - serverless-plugin-common-excludes
   - serverless-plugin-include-dependencies
@@ -21,6 +22,17 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
   type: ${env:type, 'primary'}
+
+  serverless-dynamodb:
+  # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      docker: false
+      port: 8000
+      inMemory: true
+      migrate: true
+      convertEmptyValues: true
 
 package:
   patterns:
@@ -47,7 +59,7 @@ provider:
 
   environment:
     STAGE: ${self:custom.stage}
-    SERVICE: users
+    SERVICE: dynamodb
     REGION: ${self:provider.region}
     MONGO_ENCRYPTION_KEY: k1.aesgcm256.3Y7Plme6ZAbCBQdVo3mM15x5A79un8KKXDaqjfhZ8lM=
 
@@ -55,4 +67,19 @@ provider:
     shouldStartNameWithService: true
   deploymentBucket:
     name: com.ale-portafolio.${self:provider.region}.${self:custom.stage}.deploys
-    
+
+resources:
+  Resources:
+    users:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

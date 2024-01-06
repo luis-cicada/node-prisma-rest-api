@@ -1,6 +1,8 @@
+export { Dynamo } from './aws/dynamoDb/Dynamo'
 export { Cognito } from './aws/cognito/Cognito'
 export * from './constants'
 export { DbClient, dbClient } from './db/dbClient'
+export * from './db/types'
 export * from './errors/db.error'
 export * from './errors/error'
 export * from './logger'

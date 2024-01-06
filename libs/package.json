@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "3.438.0",
+    "@aws-sdk/client-dynamodb": "^3.454.0",
+    "@aws-sdk/util-dynamodb": "^3.454.0",
     "@prisma/client": "5.5.2",
     "dotenv": "16.3.1",
     "express": "4.18.2",

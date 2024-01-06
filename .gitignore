@@ -21,6 +21,7 @@ coverage/
 
 # Serverless directories
 .serverless/
+.dynamodb/
 
 # TernJS port file
 .tern-port
