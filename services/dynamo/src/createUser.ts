@@ -11,7 +11,7 @@ const validator = createValidator({ statusCode: 422, passError: true })
 
 app.use(express.json())
 
-app.post('/users', validator.body(bodyCreateUserSchema), async (req: IExpressRequest<ICreateUserSchema>, res: Response) => {
+app.post('/dynamo', validator.body(bodyCreateUserSchema), async (req: IExpressRequest<ICreateUserSchema>, res: Response) => {
   res.set(CORS_SETTINGS)
 
   try {

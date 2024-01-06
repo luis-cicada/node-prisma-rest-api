@@ -1,7 +1,7 @@
 {
-  "name": "portafolio-users",
-  "version": "1.0.1",
-  "description": "Users Service",
+  "name": "portafolio-dynamodb",
+  "version": "1.0.0",
+  "description": "Dynamo Service",
   "main": "index.js",
   "license": "MIT",
   "author": "Luis Alejandro Guzman",
@@ -12,16 +12,18 @@
     "set-up-ci": "yarn link @portafolio/libs && yarn ci",
     "start": "(start npm run watch && start npm run serverless) || (npm run watch & npm run serverless)",
     "watch": "tsc --watch -p ./tsconfig.json",
-    "serverless": "serverless offline start --prefix users --noPrependStageInUrl --noAuth",
+    "install-dynamodb": "serverless dynamodb install",
+    "serverless": "serverless offline start --prefix dynamo --noPrependStageInUrl --noAuth",
     "deploy-primary": "tsc && serverless deploy --stage dev",
-    "dp": "tsc && serverless deploy --stage dev"
+    "dp": "tsc && serverless deploy --stage dev --aws-profile terraform-user"
   },
   "dependencies": {
     "@portafolio/libs": "link:../../libs",
     "express": "4.18.2",
     "express-joi-validation": "5.0.1",
     "joi": "17.11.0",
-    "serverless-http": "3.2.0"
+    "serverless-http": "3.2.0",
+    "uuid4": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "7.23.2",
@@ -29,8 +31,10 @@
     "@babel/preset-typescript": "7.23.2",
     "@types/express": "4.17.20",
     "@types/node": "20.8.10",
+    "@types/uuid4": "^2.0.3",
     "serverless": "3.36.0",
     "serverless-domain-manager": "7.1.2",
+    "serverless-dynamodb": "^0.2.47",
     "serverless-offline": "13.2.0",
     "serverless-plugin-common-excludes": "4.0.0",
     "serverless-plugin-include-dependencies": "5.1.0",
