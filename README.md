@@ -1,8 +1,8 @@
 # node-prisma-rest-api
 
-## Portfalio Project Description
+## Portfolio Project Description
 
-🌟 Welcome to my programming Portfalio! Explore the projects that showcase my skills, creativity, and passion for software development. Among the gems, you'll find the crown jewel: this REST API.
+🌟 Welcome to my programming Portfolio! Explore the projects that showcase my skills, creativity, and passion for software development. Among the gems, you'll find the crown jewel: this REST API.
 
 🚀 Unleash the Power of Data with the REST API 🌐
 
@@ -23,13 +23,13 @@ Empower your applications with a versatile and scalable REST API built with Mong
 - Prisma
 - And more!
 
-🔥 Start harnessing the data-driven possibilities today with the following stack. Streamline your development process, enhance your applications, and take control of your data effortlessly. Explore this Portfalio to witness my dedication to software craftsmanship.
+🔥 Start harnessing the data-driven possibilities today with the following stack. Streamline your development process, enhance your applications, and take control of your data effortlessly. Explore this Portfolio to witness my dedication to software craftsmanship.
 
 Discover my passion for problem-solving, creativity, and innovation through a collection of exciting projects. Thank you for visiting and being part of my journey!
 
 ## Technologies Used
 
-This Portfalio project makes use of a variety of cutting-edge technologies to deliver high-quality solutions. Here's a list of the key technologies, libraries, and frameworks employed:
+This Portfolio project makes use of a variety of cutting-edge technologies to deliver high-quality solutions. Here's a list of the key technologies, libraries, and frameworks employed:
 
 - [Serverless Framework (AWS)](https://www.serverless.com/framework/docs/providers/aws/)
 - [Node.js](https://nodejs.org/)/[Express](https://expressjs.com/)
